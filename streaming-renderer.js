@@ -27,6 +27,110 @@ export function streaming_renderer(root) {
         .stream-block {
             opacity: 0;
         }
+        
+        /* Markdown content styles */
+        .streaming-markdown-root h1, 
+        .streaming-markdown-root h2, 
+        .streaming-markdown-root h3, 
+        .streaming-markdown-root h4, 
+        .streaming-markdown-root h5, 
+        .streaming-markdown-root h6 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        
+        .streaming-markdown-root h1 { font-size: 2em; }
+        .streaming-markdown-root h2 { font-size: 1.5em; }
+        .streaming-markdown-root h3 { font-size: 1.17em; }
+        .streaming-markdown-root h4 { font-size: 1em; }
+        .streaming-markdown-root h5 { font-size: 0.83em; }
+        .streaming-markdown-root h6 { font-size: 0.67em; }
+        
+        .streaming-markdown-root p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .streaming-markdown-root pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        
+        .streaming-markdown-root code {
+            background-color: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 2px;
+            font-size: 0.9em;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .streaming-markdown-root pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+        
+        .streaming-markdown-root blockquote {
+            border-left: 4px solid #ddd;
+            padding-left: 15px;
+            margin: 10px 0;
+            color: #666;
+        }
+        
+        .streaming-markdown-root ul, 
+        .streaming-markdown-root ol {
+            margin: 10px 0;
+            padding-left: 30px;
+        }
+        
+        .streaming-markdown-root li {
+            margin-bottom: 5px;
+            line-height: 1.6;
+        }
+        
+        .streaming-markdown-root a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .streaming-markdown-root a:hover {
+            text-decoration: underline;
+        }
+        
+        .streaming-markdown-root table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 10px 0;
+        }
+        
+        .streaming-markdown-root th, 
+        .streaming-markdown-root td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        .streaming-markdown-root th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+        
+        .streaming-markdown-root hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin: 20px 0;
+        }
+        
+        .streaming-markdown-root strong {
+            font-weight: bold;
+        }
+        
+        .streaming-markdown-root em {
+            font-style: italic;
+        }
     `;
     
     if (!document.querySelector('style[data-streaming-markdown]')) {
@@ -34,6 +138,9 @@ export function streaming_renderer(root) {
         document.head.appendChild(style);
     }
 
+    // Add class to root element for CSS scoping
+    root.classList.add('streaming-markdown-root');
+    
     const baseRenderer = smd.default_renderer(root);
     
     // Track current block-level elements for grouping
